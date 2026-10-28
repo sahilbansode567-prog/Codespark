@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CodeSpark | JavaScript Lab</title><link rel="stylesheet" href="style.css"></head><body>
+<nav><a class="brand" href="index.html">⚡ CodeSpark</a><div class="nav"><a href="index.html">Home</a><a href="modules.html">Learn</a><a class="active" href="javascript.html">🟨 JavaScript Lab</a><a href="python.html">Python Lab</a><a href="quizzes.html">Quizzes</a><a href="admin.html">Admin</a></div></nav>
+<header class="page wrap"><span class="eyebrow">JAVASCRIPT FOUNDATION LAB</span><h1>🟨 JavaScript Learning Lab</h1><p>Build confidence in the browser with simple logic, clear structure, and working examples that help students learn by doing.</p></header>
+<main class="wrap"><div class="lab-tips"><span>🧠 Learn</span><span>⌨️ Write</span><span>▶ Run</span><span>🐞 Debug</span><span>📈 Improve</span></div>
+<div class="editor-shell"><div class="editor-toolbar"><b>🟨 JavaScript Editor</b><button onclick="runCode()" class="run">▶ Run</button><button onclick="resetCode()">↺ Reset</button><button onclick="copyCode()">📋 Copy</button><button onclick="saveCode()">⬇ Save .js</button></div>
+<div class="examples"><button onclick="loadEx('hello')">👋 Hello</button><button onclick="loadEx('math')">➕ Math</button><button onclick="loadEx('ifelse')">🔀 If / Else</button><button onclick="loadEx('loop')">🔁 Loop</button><button onclick="loadEx('function')">⚙ Function</button><button onclick="loadEx('challenge')">🏆 Challenge</button></div>
+<div class="editor-grid"><section><div class="pane-title">CODE</div><textarea id="editor" spellcheck="false"></textarea></section><section><div class="pane-title">OUTPUT</div><pre id="output" class="output">Click Run to see the output.</pre></section></div></div>
+<div id="toast"></div><section class="practice-box"><h2>🏆 Foundation Challenge</h2><p>Write a program that checks a student's marks and prints <b>Distinction</b> for 75+, <b>PASS</b> for 40–74, and <b>FAIL</b> below 40.</p><p><b>Hint:</b> Start with a variable called <code>marks</code>, then use conditions to decide the result.</p></section></main>
+<footer>⚡ CodeSpark — JavaScript Practice Lab</footer>
+<script>const defaultCode='// Welcome to JavaScript Lab\nconst name = "Student";\nconsole.log("Hello,", name);\nconsole.log("2 + 3 =", 2 + 3);';const examples={
+hello:`const name = "Student";\nconsole.log("Hello,", name);`,
+math:`const a=12, b=4;\nconsole.log("Sum:",a+b);\nconsole.log("Product:",a*b);`,
+ifelse:`const marks=78;\nif(marks>=75){console.log("Distinction")}else if(marks>=40){console.log("PASS")}else{console.log("FAIL")}`,
+loop:`for(let i=1;i<=5;i++){console.log(i)}`,
+function:`function add(a,b){return a+b}\nconsole.log(add(5,7));`,
+challenge:`// Challenge: print PASS for marks >= 40\nconst marks=82;\nconsole.log(marks>=40 ? "PASS" : "FAIL");`};
+function loadEx(k){editor.value=examples[k];output.textContent="Example loaded. Click Run.";output.className="output"}
+function copyCode(){navigator.clipboard?.writeText(editor.value);toast("Code copied!")}
+function resetCode(){editor.value=defaultCode;output.textContent="Ready to run.";output.className="output"}
+function saveCode(){const blob=new Blob([editor.value],{type:"text/plain"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="my-code.js";a.click();URL.revokeObjectURL(a.href)}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1400)}
+function runCode(){
+ const code=editor.value.trim(); if(!code){output.textContent="Write some code first.";return}
+ output.className="output"; output.textContent="";
+ const logs=[];const old=console.log;console.log=(...a)=>logs.push(a.map(String).join(" "));
+try{Function('"use strict";\n'+code)();output.textContent=logs.join("\n")||"Program finished successfully."}catch(e){output.className="output error";output.textContent="❌ "+e.name+": "+e.message}finally{console.log=old}
+}
+resetCode();</script></body></html>

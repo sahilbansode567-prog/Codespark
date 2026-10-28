@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4F46E5">
+  <meta name="description" content="CodeSpark — learn coding with simple lessons, labs, quizzes and projects.">
+  <title>CodeSpark | Learn Coding</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root {
+      --purple: #5b50ff;
+      --ink: #192235;
+      --muted: #58657a;
+      --page: #f4f7fb;
+      --line: #e1e6ef;
+      --navy: #111827;
+      --navy2: #202b3c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      min-height: 61px; background: #fff; border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 22px; padding: 0 3.2%;
+    }
+    .brand { color: var(--purple); font-size: 19px; font-weight: 850; white-space: nowrap; }
+    .brand span { color: #ff963f; margin-right: 8px; }
+    .nav { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .nav a { padding: 12px 14px; font-size: 13px; font-weight: 750; color: #46536a; border-radius: 10px; }
+    .nav a:hover, .nav a.active { background: #eeecff; color: var(--purple); }
+    .wrap { width: min(1210px, 92%); margin: auto; }
+    .hero { padding: 68px 0 35px; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 40px; }
+    .eyebrow { color: var(--purple); font-size: 12px; letter-spacing: 2px; font-weight: 900; text-transform: uppercase; }
+    h1 { font-size: clamp(40px, 5.2vw, 62px); letter-spacing: -2.6px; line-height: 1.08; margin: 17px 0 18px; font-weight: 900; }
+    h1 span { color: var(--purple); }
+    .intro { color: var(--muted); font-size: 16px; line-height: 1.8; max-width: 650px; margin: 0; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 18px; border-radius: 10px; font-weight: 800; font-size: 14px; border: 1px solid var(--line); background: #fff; }
+    .btn.primary { background: var(--purple); color: white; border-color: var(--purple); }
+    .btn:hover { transform: translateY(-1px); }
+    .code-card { background: var(--navy); border-radius: 16px; overflow: hidden; box-shadow: 0 18px 45px #17223b18; color: #f8fafc; }
+    .code-head { background: var(--navy2); padding: 16px 20px; font-weight: 800; display: flex; justify-content: space-between; gap: 10px; }
+    .dots { color: #fb7185; letter-spacing: 4px; }
+    pre { margin: 0; padding: 25px 23px; font: 14px/1.9 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .cyan { color: #67e8f9; } .green { color: #86efac; } .lavender { color: #c4b5fd; }
+    .code-foot { padding: 13px 20px; border-top: 1px solid #2b3648; color: #cbd5e1; font-size: 12px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 5px auto 54px; }
+    .stat { background: white; border: 1px solid var(--line); border-radius: 13px; padding: 19px 20px; }
+    .stat strong { display: block; font-size: 25px; color: var(--purple); font-weight: 900; }
+    .stat span { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .section { padding: 12px 0 58px; }
+    .section-head { margin-bottom: 22px; }
+    h2 { margin: 8px 0 8px; font-size: clamp(27px, 3vw, 35px); letter-spacing: -1px; }
+    .section-head p { color: var(--muted); line-height: 1.7; margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
+    .card { background: white; border: 1px solid var(--line); border-radius: 14px; padding: 23px; min-height: 205px; transition: transform .15s, box-shadow .15s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px #17223b0c; }
+    .icon { width: 48px; height: 48px; border-radius: 12px; background: #eeecff; display: grid; place-items: center; font-size: 24px; margin-bottom: 17px; }
+    .card h3 { font-size: 18px; margin: 0 0 9px; }
+    .card p { color: var(--muted); line-height: 1.65; font-size: 14px; min-height: 68px; margin: 0 0 14px; }
+    .card a { color: var(--purple); font-size: 13px; font-weight: 850; }
+    .cta { background: #191b45; color: white; border-radius: 17px; padding: 34px; margin-bottom: 42px; text-align: center; }
+    .cta h2 { margin-top: 9px; }
+    .cta p { color: #cbd5e1; margin: 10px 0 20px; }
+    footer { text-align: center; color: #68758a; border-top: 1px solid var(--line); padding: 23px 12px; font-size: 13px; background: white; }
+    @media (max-width: 900px) {
+      .topbar { align-items: flex-start; flex-direction: column; padding: 15px 4%; gap: 10px; }
+      .nav { gap: 2px; } .nav a { padding: 9px 10px; }
+      .hero { grid-template-columns: 1fr; padding-top: 43px; gap: 27px; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .nav a { font-size: 12px; padding: 8px; }
+      h1 { letter-spacing: -1.7px; }
+      .cards { grid-template-columns: 1fr; }
+      .stats { gap: 9px; }
+      .stat { padding: 15px; }
+      .cta { padding: 27px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./index.html"><span>⚡</span>CodeSpark</a>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="active" href="./index.html">Home</a>
+      <a href="./modules.html">Learn</a>
+      <a href="./javascript.html">🟨 JavaScript Lab</a>
+      <a href="./python.html">Python Lab</a>
+      <a href="./quizzes.html">Quizzes</a>
+      <a href="./admin.html">Admin</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div>
+        <div class="eyebrow">WELCOME TO YOUR CODING JOURNEY</div>
+        <h1>Learn Coding.<br><span>Build Your Future.</span></h1>
+        <p class="intro">Build confidence with simple lessons, hands-on coding labs, quizzes, and projects that help you learn by doing.</p>
+        <div class="actions">
+          <a class="btn primary" href="./modules.html">Start Learning →</a>
+          <a class="btn" href="./projects.html">Explore Projects</a>
+        </div>
+      </div>
+      <div class="code-card">
+        <div class="code-head"><span>⚡ CodeSpark Editor</span><span class="dots">● ● ●</span></div>
+        <pre><span class="lavender">// Your first JavaScript program</span>
+<span class="cyan">const</span> name = <span class="green">"Student"</span>;
+
+<span class="cyan">console</span>.log(<span class="green">"Hello, "</span> + name);
+<span class="cyan">console</span>.log(<span class="green">"Welcome to CodeSpark!"</span>);
+
+<span class="lavender">// Learn something new every day.</span></pre>
+        <div class="code-foot">● Ready to learn &nbsp; · &nbsp; Learn • Write • Run • Improve</div>
+      </div>
+    </section>
+
+    <section class="stats wrap" aria-label="CodeSpark features">
+      <div class="stat"><strong>30</strong><span>Guided learning modules</span></div>
+      <div class="stat"><strong>2</strong><span>Interactive coding labs</span></div>
+      <div class="stat"><strong>3</strong><span>Quiz difficulty levels</span></div>
+      <div class="stat"><strong>8</strong><span>Starter project ideas</span></div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <div class="eyebrow">YOUR LEARNING TOOLKIT</div>
+        <h2>Explore CodeSpark</h2>
+        <p>Choose a path, practise your skills, and keep improving one step at a time.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="icon">📚</div><h3>Learn Coding</h3>
+          <p>Explore beginner-friendly lessons, concepts, examples, and practice tasks.</p>
+          <a href="./modules.html">Browse modules →</a>
+        </article>
+        <article class="card">
+          <div class="icon">🟨</div><h3>JavaScript Lab</h3>
+          <p>Write code, try examples, run programs, and understand the results.</p>
+          <a href="./javascript.html">Open JavaScript Lab →</a>
+        </article>
+        <article class="card">
+          <div class="icon">🐍</div><h3>Python Lab</h3>
+          <p>Practise Python basics with guided examples and coding challenges.</p>
+          <a href="./python.html">Open Python Lab →</a>
+        </article>
+        <article class="card">
+          <div class="icon">🧠</div><h3>Coding Quizzes</h3>
+          <p>Test what you know with beginner, intermediate, and advanced quizzes.</p>
+          <a href="./quizzes.html">Take a quiz →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="cta">
+        <div class="eyebrow" style="color:#a5b4fc">READY WHEN YOU ARE</div>
+        <h2>Every expert started as a beginner.</h2>
+        <p>Start learning today and turn your ideas into something real.</p>
+        <a class="btn primary" href="./projects.html">Build Your First Project →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>⚡ CodeSpark — Learn. Code. Create.</footer>
+</body>
+</html>
